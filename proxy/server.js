@@ -24,6 +24,19 @@ app.use('/recommendations', (req, res) => {
     });
 });
 
+app.use('/reviews', (req, res) => {
+  console.log(req.originalUrl);
+  axios.get(`http://reviews:3001${req.originalUrl}`)
+    .then(res => res.data)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send();
+    });
+});
+
 app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`)
 });

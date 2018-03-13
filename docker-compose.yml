@@ -3,6 +3,12 @@ version: '3'
 services:
   database:
     image: mongo
+  reviews:
+    image: bdduong/reviews-component:newimage
+    depends_on: 
+      - 'database'
+    ports:
+      - '3001:3001'
   recommendations:
     image: zinoki/recommendations-component:sixthtry
     depends_on: 
