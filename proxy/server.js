@@ -10,9 +10,10 @@ const port = process.env.PORT || 3000;
 // app.use(morgan('dev'));
 // app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(':listing_id', express.static(path.join(__dirname, 'public')));
+app.use('/:listing_id', express.static(path.join(__dirname, 'public')));
 app.use('/recommendations', (req, res) => {
-  axios.get(`http://localhost:3005${req.originalUrl}`)
+  console.log(req.originalUrl);
+  axios.get(`http://recommendations:3005${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
       res.send(data);

@@ -4,4 +4,4 @@ WORKDIR /app/proxy
 COPY . /app/proxy
 RUN npm install
 EXPOSE 3000
-CMD ["npm, start"]
+CMD [ "npm", "start" ]

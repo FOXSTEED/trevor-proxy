@@ -4,4 +4,14 @@ services:
   database:
     image: mongo
   recommendations:
-    image: zinoki/recommendations-component
+    image: zinoki/recommendations-component:sixthtry
+    depends_on: 
+      - 'database'
+    ports:
+      - '3005:3005'
+  proxy:
+    build: ./
+    depends_on:
+      - 'recommendations'
+    ports:
+      - '3000:3000'
