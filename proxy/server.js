@@ -14,7 +14,6 @@ app.use('/:listing_id', express.static(path.join(__dirname, 'public')));
 
 //bryan
 app.use('/reviews', (req, res) => {
-  console.log(req.originalUrl);
   axios.get(`http://reviews:3001${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
@@ -28,7 +27,6 @@ app.use('/reviews', (req, res) => {
 
 //eric
 app.use('/overview', (req, res) => {
-  console.log(req.originalUrl);
   axios.get(`http://overview:3002${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
@@ -42,7 +40,6 @@ app.use('/overview', (req, res) => {
 
 //kirk
 app.use('/nearby', (req, res) => {
-  console.log(req.originalUrl);
   axios.get(`http://nearby:3003${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
@@ -56,7 +53,6 @@ app.use('/nearby', (req, res) => {
 
 //kyle
 app.use('/q-and-a', (req, res) => {
-  console.log(req.originalUrl);
   axios.get(`http://q-and-a:3004${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
@@ -70,7 +66,6 @@ app.use('/q-and-a', (req, res) => {
 
 //zack
 app.use('/recommendations', (req, res) => {
-  console.log(req.originalUrl);
   axios.get(`http://recommendations:3005${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {

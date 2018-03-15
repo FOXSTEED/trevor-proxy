@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   database:
@@ -9,15 +9,17 @@ services:
       POSTGRES_USER: nearbyapp
       POSTGRES_DB: nearbyitems
   reviews:
-    image: bdduong/reviews-component:newimage
+    image: zinoki/reviews:second
+    command: bash -c 'while !</dev/tcp/database/27017; do sleep 1; done; npm start'
     depends_on: 
       - 'database'
     ports:
       - '3001:3001'
   overview:
     image: emsando/overview-component:latest
+    command: bash -c 'while !</dev/tcp/reviews/3001; do sleep 1; done; npm start'
     depends_on: 
-      - 'database'
+      - 'reviews'
     ports:
       - '3002:3002'
   nearby:
@@ -30,21 +32,23 @@ services:
     ports:
       - '3003:3003'
   q-and-a:
-    image: kylechambers/q-and-a:trythree
+    image: zinoki/q-and-a:second
+    command: bash -c 'while !</dev/tcp/overview/3002; do sleep 1; done; npm start'
     depends_on: 
-      - 'database'
+      - 'overview'
     ports:
       - '3004:3004'
   recommendations:
     image: zinoki/recommendations-component:sixthtry
+    command: bash -c 'while !</dev/tcp/q-and-a/3004; do sleep 1; done; npm start'
     depends_on: 
-      - 'database'
+      - 'q-and-a'
     ports:
       - '3005:3005'
   proxy:
-    build: ./
+    image: zinoki/tripadvisor:third
+    command: bash -c 'while !</dev/tcp/recommendations/3005; do sleep 1; done; npm start'
     depends_on:
       - 'recommendations'
-      - 'nearby'
     ports:
       - '3000:3000'
