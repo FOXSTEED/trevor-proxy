@@ -1,5 +1,5 @@
 const express = require('express')
-// const morgan = require('morgan');
+require('newrelic');
 const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
@@ -40,7 +40,7 @@ app.use('/overview', (req, res) => {
 
 //kirk
 app.use('/nearby', (req, res) => {
-  axios.get(`http://nearby:3003${req.originalUrl}`)
+  axios.get(`http://localhost:3003${req.originalUrl}`)
     .then(res => res.data)
     .then((data) => {
       res.send(data);
