@@ -4,10 +4,12 @@ const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
 const app = express();
+const morgan = require('morgan');
+require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 // app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/:listing_id', express.static(path.join(__dirname, 'public')));
@@ -39,17 +41,20 @@ app.use('/overview', (req, res) => {
 });
 
 //kirk
-app.use('/nearby', (req, res) => {
-  axios.get(`http://localhost:3003${req.originalUrl}`)
-    .then(res => res.data)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send();
-    });
-});
+
+// app.use('/nearby/*', (req, res) => {
+
+//   // axios.get(`/nearby${req.originalUrl.split('/')[2]}`)
+//   axios.get(`${req.originalUrl}`)
+//     .then(res => res.data)
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.send();
+//     });
+// });
 
 //kyle
 app.use('/q-and-a', (req, res) => {
