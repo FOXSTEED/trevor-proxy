@@ -7,7 +7,7 @@ module.exports = (title, body, scripts, stylesheets) => `
       <title>${title}</title>
     </head>
     <body>
-    <div id="Nearby"></div>
+
     ${body}
     </body>
     ${scripts}
