@@ -18,7 +18,9 @@
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- <script src="/reviews/bundle.js"></script>
     <script src="/overview/bundle.js"></script> -->
-    <script src="/nearby/bundle.js"></script>
+    <script src="/lib/react.development.js"></script>
+    <script src="/lib/react-dom.development.js"></script>
+    <script src="http://localhost:8000/app.js"></script>
     <!-- <script src="/q-and-a/bundle.js"></script>
     <script src="/recommendations/bundle.js"></script> -->
     <script>
@@ -42,7 +44,7 @@
       // );
     ReactDOM.render(
         React.createElement(Nearby, {id: listing}),
-        document.getElementById('nearby')
+        document.getElementById('Nearby')
     );
     </script>
   </body>

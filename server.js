@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
+const proxy = require('express-http-proxy');
 const app = express();
 const morgan = require('morgan');
 require('dotenv').config();
@@ -10,11 +11,44 @@ const port = process.env.PORT || 3000;
 
 
 app.use(morgan('dev'));
-// app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/:listing_id', express.static(path.join(__dirname, 'public')));
 
-//bryan
+
+const clientBundles = './public/services';
+const serverBundles = './templates/services';
+const serviceConfig = require('./service-config.json');
+const services = require('./loader.js')(clientBundles, serverBundles, serviceConfig);
+
+const React = require('react');
+const ReactDom = require('react-dom/server');
+const Layout = require('./templates/layout');
+const App = require('./templates/app');
+const Scripts = require('./templates/scripts');
+const Stylesheets = require('./templates/stylesheets');
+
+const renderComponents = (components, props = {}) => {
+  return Object.keys(components).map(item => {
+    let component = React.createElement(components[item], props);
+
+    return ReactDom.renderToString(component);
+  });
+}
+
+app.get('/test/:id', (req, res) => {
+  console.log(req.params.id)
+  let components = renderComponents(services, {id: req.params.id} );
+  console.log(...components)
+  res.send(Layout(
+    'Nearby',
+    App(...components),
+    Scripts(Object.keys(services), req.params.id),
+    Stylesheets(Object.keys(services))
+
+  ));
+});
+//bryan`
 // app.use('/reviews', (req, res) => {
 //   axios.get(`http://reviews:3001${req.originalUrl}`)
 //     .then(res => res.data)
