@@ -10,7 +10,7 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/:listing_id', express.static(path.join(__dirname, 'public')));
@@ -36,10 +36,10 @@ const renderComponents = (components, props = {}) => {
   });
 }
 
-app.get('/test/:id', (req, res) => {
+app.get('/item/:id', (req, res) => {
   console.log(req.params.id)
   let components = renderComponents(services, {id: req.params.id} );
-  console.log(...components)
+
   res.send(Layout(
     'Nearby',
     App(...components),
