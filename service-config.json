@@ -1,4 +1,4 @@
 { 
-  "Nearby": "http://localhost:8000/app"
+  "Nearby": "http://ec2-52-8-175-105.us-west-1.compute.amazonaws.com/app"
  
 }
