@@ -46,6 +46,13 @@ app.get('/item/:id', (req, res) => {
 
   ));
 });
+
+app.use('/nearby', proxy(process.env.NEARBY || 'localhost:8000', {
+  proxyReqPathResolver: (req) => {
+    return require('url').parse(`/nearby${req.url}`).path;
+  }
+}));
+
 //bryan`
 // app.use('/reviews', (req, res) => {
 //   axios.get(`http://reviews:3001${req.originalUrl}`)
